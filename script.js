@@ -1,18 +1,61 @@
 let str = "";
 const cardsContainer = document.getElementById("cardsContainer");
 
+let Loading = true;
+function loading(){
+if(Loading){
+  document.getElementById('loading').textContent = "Loading...";
+  setTimeout(()=>{
+    Loading = false
+    document.getElementById('loading').innerHTML = "";
 
-const showNews = async (category, country) => {
+  },1500);
+  console.log(Loading);
+  
+   Loading = false;
+     
+}
+else{
+  Loading = true;
+  if(Loading){
+    document.getElementById('loading').textContent = "Loading...";
+    setTimeout(()=>{
+      Loading = false
+      document.getElementById('loading').innerHTML = "";
+  
+    },1000);
+     Loading = false;
+       
+  }
+}
+
+}
+
+
+loading()
+
+
+
+
+
+const showNews = async (category, country,totalpage,pageSize) => {
+   
   let response = await fetch(
     `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=5ae4245ddcbc4c58a2c855a9465ef581`
-  );
+    );
+
+  
   let data = await response.json();
   
   const { totalResults, articles } = data;
-  console.log(articles);
+  
+  str = "";
+
+  
   
 
   for (let val of articles) {
+    
     const { title, url, description, urlToImage, publishedAt, source } = val;
     str += `<div class="card mx-3 my-3" style="width: 18rem;">
       <img src=${urlToImage} class="card-img-top" alt="...">
@@ -24,23 +67,40 @@ const showNews = async (category, country) => {
       </div>
     </div>`;
 }  
- cardsContainer.innerHTML = str
+cardsContainer.innerHTML = str
+
  
  
 };
-showNews("entertainment", "in");
+
+window.addEventListener('DOMContentLoaded',showNews("entertainment", "in"));
+
+
 
 const categories = document.querySelectorAll('.categories');
 categories.forEach(category => {
     category.addEventListener('click',async(e)=>{
         let findCategory = e.target.innerHTML;
          let chooseCategory =  findCategory.charAt(0).toLowerCase() + findCategory.slice(1).toLowerCase()
-         showNews(chooseCategory, "in");
+         loading()
+         showNews(chooseCategory, "in",1);
      
     })
 });
 
 submit.addEventListener('click',(e)=>{
-    e.preventDefault()
+    e.preventDefault();
     showNews(input.value, "in");
+})
+
+
+
+
+const next = document.getElementById('next');
+const prev = document.getElementById('prev');
+
+
+
+next.addEventListener('click',()=>{
+   
 })
