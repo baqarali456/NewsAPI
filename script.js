@@ -8,13 +8,8 @@ function loading() {
     setTimeout(() => {
       document.getElementById("loading").innerHTML = "";
     }, 1500);
-    Loading = false;
-  } else {
-    document.getElementById("loading").textContent = "Loading...";
-    setTimeout(() => {
-      document.getElementById("loading").innerHTML = "";
-    }, 1000);
-  }
+
+  } 
 }
 
 loading();
