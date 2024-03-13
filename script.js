@@ -6,10 +6,10 @@ let index = 1;
 let Loading = true;
 function loading() {
   if (Loading) {
-    document.getElementById("loading").textContent = "Loading...";
+    document.getElementById("loading").innerHTML = '<i class="my-3 fa-solid fa-spinner fa-spin"></i>';
     setTimeout(() => {
       document.getElementById("loading").innerHTML = "";
-    }, 1500);
+    }, 800);
 
   } 
 }
@@ -55,6 +55,7 @@ const categories = document.querySelectorAll('.categories');
 categories.forEach(category=>{
   category.style.cursor = "pointer";
   category.addEventListener('click',()=>{
+    loading();
     showNews("in",category.innerHTML.toLowerCase(),6,index);
   })
 });
@@ -86,4 +87,11 @@ function prevpage(){
     showNews('in',"sports",6,index);
   }
 }
+
+
+submit.addEventListener('click',(e)=>{
+ e.preventDefault();
+ loading()
+ showNews('in',input.value,6,index);
+})
 
