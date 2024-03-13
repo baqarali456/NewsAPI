@@ -2,6 +2,7 @@ let str = "";
 const cardsContainer = document.getElementById("cardsContainer");
 let newsData;
 let index = 1;
+let category = "sports";
 
 let Loading = true;
 function loading() {
@@ -10,7 +11,6 @@ function loading() {
     setTimeout(() => {
       document.getElementById("loading").innerHTML = "";
     }, 800);
-
   } 
 }
 
@@ -22,7 +22,7 @@ const showNews = async (country,category,size,page) => {
   newsData = data.articles.map(ele=>({...ele,category:category,country:country}));
   listofNews();
 }
-showNews('in',"sports",6,index);
+showNews('in',category,6,index);
 
 
 function listofNews() {
@@ -37,7 +37,7 @@ function listofNews() {
       urlToImage
     } = element;
     str += `<div class="card mx-3 my-3" style="width: 18rem;">
-      <img src=${urlToImage} class="card-img-top" alt="...">
+      <img src=${urlToImage?urlToImage:'https://images.news18.com/ibnlive/uploads/2024/03/virat-kohli-practice-pti-2024-03-9d14b1b119ef307845218eabf052b67c-16x9.jpg?impolicy=website&width=1200&height=675'} class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">${title}</h5>
         <p class="card-text">${description}</p>
@@ -73,7 +73,7 @@ next.addEventListener('click',()=>{
 function nextpage(){
   if(index < 14){
     index++;  
-    showNews('in',"sports",6,index);
+    showNews('in',category,6,index);
   }
 }
 
@@ -84,14 +84,26 @@ prev.addEventListener('click',()=>{
 function prevpage(){
   if(index > 1){
     index--; 
-    showNews('in',"sports",6,index);
+    showNews('in',category,6,index);
   }
 }
 
+let allcategory  =["business","entertainment","general","health","science","sports","technology"]
 
 submit.addEventListener('click',(e)=>{
  e.preventDefault();
- loading()
- showNews('in',input.value,6,index);
+  allcategory.forEach(ele=>{
+   if(input.value == ele){
+     loading();
+     showNews('in',input.value,6,index);
+     input.value = "";
+   }
+   else{
+    input.value = "No Results Found";
+   }
+   
+  })
+  
+ 
 })
 
