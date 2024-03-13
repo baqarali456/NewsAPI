@@ -98,10 +98,6 @@ submit.addEventListener('click',(e)=>{
      showNews('in',input.value,6,index);
      input.value = "";
    }
-   else{
-    input.value = "No Results Found";
-   }
-   
   })
   
  
