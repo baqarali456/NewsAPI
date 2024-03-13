@@ -3,6 +3,19 @@ const cardsContainer = document.getElementById("cardsContainer");
 let newsData;
 let index = 1;
 
+let Loading = true;
+function loading() {
+  if (Loading) {
+    document.getElementById("loading").textContent = "Loading...";
+    setTimeout(() => {
+      document.getElementById("loading").innerHTML = "";
+    }, 1500);
+
+  } 
+}
+
+loading();
+
 const showNews = async (country,category,size,page) => {
   let response = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=5ae4245ddcbc4c58a2c855a9465ef581&pageSize=${size}&page=${page}`);
   data = await response.json();
